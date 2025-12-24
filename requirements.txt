@@ -1,5 +1,4 @@
 fastapi
 uvicorn
 dotenv
-os
 supabase
