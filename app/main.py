@@ -2,13 +2,10 @@ from typing import List, Optional
 from fastapi import FastAPI, HTTPException, Query
 from .utils import load_keyterms, get_term_data
 from .keyterm_entity import KeytermInsight
-from dotenv import load_dotenv
-import os
 from supabase import create_client
 
-load_dotenv()
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_URL="https://xmhxmedbthkfnsjjgaie.supabase.co"
+SUPABASE_KEY="sb_secret_HxVENnifk1lihvWhfQ9L-A_KnDy9nvR"
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI(
