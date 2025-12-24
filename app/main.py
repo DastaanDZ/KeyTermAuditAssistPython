@@ -19,10 +19,3 @@ def keyterm_lookup(keyterm: str = Query(..., description="The keyterm to look up
     if not result:
         raise HTTPException(status_code=404, detail="Key term not found")
     return result
-
-@app.get("/keyterms/")
-def list_keyterms():
-    """
-    Get a list of all keyterms.
-    """
-    return list(keyterms_data.keys())
