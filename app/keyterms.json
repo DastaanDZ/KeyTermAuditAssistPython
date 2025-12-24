@@ -1,0 +1,45 @@
+{
+  "Renewal Cap Term": {
+    "must": {
+      "LOB": ["Cloud"],
+      "section_headings": ["Renewal", "Renewal Cap", "Renewals"]
+    },
+    "regex": "(?i)\\(?\\d+\\)?\\s*[-,]?\\s*(months?|years?)|first ?renewal ?order",
+    "description": "Cap on how much Oracle can increase the Term of the service, at the time of Renewal"
+  },
+  "Renewal Cap %": {
+    "must": {
+      "LOB": ["Cloud"],
+      "section_headings": ["Renewal", "Renewal Cap", "Renewals"]
+    },
+    "regex": "(?i)\\d+(?:\\.\\d+)?%|(shall *?not *?increase *?over *?the *?prior *?year.*?fees?)",
+    "description": "Cap on how much Oracle can increase the net price of the service, at the time of Renewal"
+  },
+  "Price hold": {
+    "must": {
+      "LOB": ["Cloud", "Hardware & License"],
+      "section_headings": ["Price hold", "Additional Price hold", "replenishment"]
+    },
+    "must_not": {
+      "section_headings": ["pursuant to Price Hold"]
+    },
+    "regex": "(?i)(?=.may\\sorder\\sadditional\\squantities\\sof\\sthe\\scloud\\sservices)(?=.This\\sprice\\shold\\sdoes\\snot\\sapply\\sto\\sEloqua\\sMarketing\\sPlatform\\sCloud\\sService)(?=.acquired\\sunder\\sthis)(?=.at\\sthe\\sUnit\\sNet\\sPrice\\sspecified\\sabove)(?=.to\\sany\\srenewals\\sor\\sextensions\\sof\\sthe\\scloud\\sservices)(?=.ordered\\spursuant\\sto\\sa\\sseparate\\sOracle\\sdiscount\\sor\\spromotion)(?=.to\\sany\\scloud\\sservices\\sother\\sthan\\sthose\\slisted\\sin\\sthe\\sinitial\\spurchase\\sunder\\sthis)",
+    "description": "A contractual commitment to a specific price or discount on a product or a service that a customer can utilize for a specified period"
+  },
+  "Support Cap Term": {
+    "must": {
+      "LOB": ["HW & License"],
+      "section_headings": ["technical support", "technical support cap"]
+    },
+    "regex": "(?i)12 ? months?|twelve ? months?|1 ?year|one ?year|first,? *?(?:and|&)? *?second,? *?(?:and|&)? *?third,? *?(?:and|&)? *?fourth,? *?(?:and|&)? *?fifth|first,? *?(?:and|&)? *?second,? *?third,? *?fourth|first,? *?(?:and|&)? *?second,? *?third|first,? *?(?:and|&)? *?(?:second|subsequent)",
+    "description": "Cap on how much Oracle can increase the Term of the Technical Support services, at the time of renewal."
+  },
+  "Recovery Time Objective": {
+    "must": {
+      "LOB": ["Cloud"],
+      "paragraph_text": ["recovery time objective", "RTO"]
+    },
+    "regex": "(?i)(?:(?:recovery time objective|\\(RTO\\)).*?\\(?((?:\\d+)\\)? ?(?:minutes?|hours?)))",
+    "description": "The Recovery Time Objective (RTO) is a customer commitment to the maximum amount of time required to recover a service from a production disruption"
+  }
+}
