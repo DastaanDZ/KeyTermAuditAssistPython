@@ -9,7 +9,7 @@ def load_keyterms(filename=None):
         return json.load(f)
 
 def get_term_data(keyterms_data, keyterm):
-    entry = keyterms_data.get(keyterm)
+    entry = keyterms_data.get(keyterm.upper())
     if not entry:
         return None
     result = {
