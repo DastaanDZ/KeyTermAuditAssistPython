@@ -1,0 +1,15 @@
+from pydantic import BaseModel
+
+
+class KeytermClassification(BaseModel):
+    KEYTERM_INSIGHT_ID: int
+    ORDER_NUMBER: int
+    KEYTERM_CODE: str
+    SYSTEM_CLASSIFICATION_VALUE: str
+    USER_CLASSIFICATION_VALUE: str 
+    LAST_UPDATE_DATE: str
+    LAST_UPDATE_BY: str
+    SYS_CLASSIFICATION_TERM_PRESENT: str
+    USER_CLASSIFICATION_TERM_PRESENT: str
+    SYS_CLASSIFICATION_RESULT: str
+    USER_CLASSIFICATION_RESULT: str

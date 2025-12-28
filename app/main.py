@@ -1,11 +1,13 @@
 from typing import List, Optional
 from fastapi import FastAPI, HTTPException, Query
-from .utils import load_keyterms, get_term_data
-from .keyterm_entity import KeytermInsight
+from .utils import load_keyterms, get_term_data,keyterm_parsing
+from .keyterm_classification import KeytermClassification
+from .keyterm_insight import KeytermInsight
+from .keyterm_ES import KeytermES
 from supabase import create_client
 
-SUPABASE_URL="https://xmhxmedbthkfnsjjgaie.supabase.co"
-SUPABASE_KEY="sb_secret_HxVENnifk1lihvWhfQ9L-A_KnDy9nvR"
+SUPABASE_URL = "https://xmhxmedbthkfnsjjgaie.supabase.co"
+SUPABASE_KEY = "sb_secret_HxVENnifk1lihvWhfQ9L-A_KnDy9nvR"
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI(
@@ -27,8 +29,8 @@ def keyterm_lookup(keyterm: str = Query(..., description="The keyterm to look up
     return result
 
 
-@app.get("/keyterms", response_model=List[KeytermInsight])
-def get_keyterm_insights(
+@app.get("/keytermsClassification", response_model=List[KeytermClassification])
+def get_keyterm_classification(
     order_number: Optional[int] = Query(None, description="Order number (BIGINT)"),
     keyterm_code: Optional[str] = Query(None, description="Keyterm code"),
 ):
@@ -40,7 +42,59 @@ def get_keyterm_insights(
         query = query.eq("ORDER_NUMBER", order_number)
 
     if keyterm_code is not None:
-        query = query.eq("KEYTERM_CODE", keyterm_code)
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm_code))
+
+    response = query.execute()
+    data = response.data
+
+    if not data:
+        raise HTTPException(
+            status_code=404, detail="No records found for given filters"
+        )
+
+    return data
+
+
+@app.get("/keytermsInsight", response_model=List[KeytermInsight])
+def get_keyterm_insight(
+    order_number: Optional[int] = Query(None, description="Order number (BIGINT)"),
+    keyterm_code: Optional[str] = Query(None, description="Keyterm code"),
+):
+    # Start base query
+    query = supabase.table("KEYTERM_INSIGHT").select("*")
+
+    # Apply filters only if present
+    if order_number is not None:
+        query = query.eq("ORDER_NUMBER", order_number)
+
+    if keyterm_code is not None:
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm_code))
+
+    response = query.execute()
+    data = response.data
+
+    if not data:
+        raise HTTPException(
+            status_code=404, detail="No records found for given filters"
+        )
+
+    return data
+
+
+@app.get("/keytermsES", response_model=List[KeytermES])
+def get_keyterm_insight(
+    order_number: Optional[int] = Query(None, description="Order number (BIGINT)"),
+    keyterm_code: Optional[str] = Query(None, description="Keyterm code"),
+):
+    # Start base query
+    query = supabase.table("KEYTERM_ES_INTEGRATION").select("*")
+
+    # Apply filters only if present
+    if order_number is not None:
+        query = query.eq("ORDER_NUMBER", order_number)
+
+    if keyterm_code is not None:
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm_code))
 
     response = query.execute()
     data = response.data

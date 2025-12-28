@@ -20,3 +20,9 @@ def get_term_data(keyterms_data, keyterm):
     if "must_not" in entry:
         result["must_not"] = entry["must_not"]
     return result
+
+def keyterm_parsing(keyterm_name: str) -> str:
+    if not keyterm_name:
+        return ""
+
+    return keyterm_name.strip().upper().replace(" ", "_")
