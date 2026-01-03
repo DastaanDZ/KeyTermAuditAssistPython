@@ -31,18 +31,18 @@ def keyterm_lookup(keyterm: str = Query(..., description="The keyterm to look up
 
 @app.get("/keytermsClassification", response_model=List[KeytermClassification])
 def get_keyterm_classification(
-    order_number: Optional[int] = Query(None, description="Order number (BIGINT)"),
-    keyterm_code: Optional[str] = Query(None, description="Keyterm code"),
+    ordernumber: Optional[int] = Query(None, description="Order number (BIGINT)"),
+    keyterm: Optional[str] = Query(None, description="Keyterm code"),
 ):
     # Start base query
     query = supabase.table("KEYTERM_CLASSIFICATION_ALL").select("*")
 
     # Apply filters only if present
-    if order_number is not None:
-        query = query.eq("ORDER_NUMBER", order_number)
+    if ordernumber is not None:
+        query = query.eq("ORDER_NUMBER", ordernumber)
 
-    if keyterm_code is not None:
-        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm_code))
+    if keyterm is not None:
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm))
 
     response = query.execute()
     data = response.data
@@ -57,18 +57,18 @@ def get_keyterm_classification(
 
 @app.get("/keytermsInsight", response_model=List[KeytermInsight])
 def get_keyterm_insight(
-    order_number: Optional[int] = Query(None, description="Order number (BIGINT)"),
-    keyterm_code: Optional[str] = Query(None, description="Keyterm code"),
+    ordernumber: Optional[int] = Query(None, description="Order number (BIGINT)"),
+    keyterm: Optional[str] = Query(None, description="Keyterm code"),
 ):
     # Start base query
     query = supabase.table("KEYTERM_INSIGHT").select("*")
 
     # Apply filters only if present
-    if order_number is not None:
-        query = query.eq("ORDER_NUMBER", order_number)
+    if ordernumber is not None:
+        query = query.eq("ORDER_NUMBER", ordernumber)
 
-    if keyterm_code is not None:
-        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm_code))
+    if keyterm is not None:
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm))
 
     response = query.execute()
     data = response.data
@@ -83,18 +83,18 @@ def get_keyterm_insight(
 
 @app.get("/keytermsES", response_model=List[KeytermES])
 def get_keyterm_insight(
-    order_number: Optional[int] = Query(None, description="Order number (BIGINT)"),
-    keyterm_code: Optional[str] = Query(None, description="Keyterm code"),
+    ordernumber: Optional[int] = Query(None, description="Order number (BIGINT)"),
+    keyterm: Optional[str] = Query(None, description="Keyterm code"),
 ):
     # Start base query
     query = supabase.table("KEYTERM_ES_INTEGRATION").select("*")
 
     # Apply filters only if present
-    if order_number is not None:
-        query = query.eq("ORDER_NUMBER", order_number)
+    if ordernumber is not None:
+        query = query.eq("ORDER_NUMBER", ordernumber)
 
-    if keyterm_code is not None:
-        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm_code))
+    if keyterm is not None:
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm))
 
     response = query.execute()
     data = response.data
