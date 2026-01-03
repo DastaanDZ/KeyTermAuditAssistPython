@@ -5,6 +5,6 @@ class KeytermES(BaseModel):
     ORDER_NUMBER: int
     KEYTERM_CODE: str
     PAGE_NUMBER: int
-    SECTION_HEADER: str
-    PARAGRAPH_TEXT: str
+    SECTIONHEADER: str
+    PARAGRAPHTEXT: str
     

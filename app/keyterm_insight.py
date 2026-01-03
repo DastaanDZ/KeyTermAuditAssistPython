@@ -4,7 +4,7 @@ class KeytermInsight(BaseModel):
     KEYTERM_INSIGHT_ID: int
     ORDER_NUMBER: int
     KEYTERM_CODE: str
-    CLASSIFICATION_VALUE: str
+    CLASSIFICATIONVALUE: str
     CLASSIFICATION_TERM_PRESENT: str
     CLASSIFICATION_RESULT: str
     ES_HITS: int
