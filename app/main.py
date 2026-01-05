@@ -105,3 +105,7 @@ def get_keyterm_insight(
         )
 
     return data
+
+@app.get("/test")
+def test():
+    return "4.5"
