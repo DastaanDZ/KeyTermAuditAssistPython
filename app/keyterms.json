@@ -7,7 +7,7 @@
     "regex": "(?i)\\(?\\d+\\)?\\s*[-,]?\\s*(months?|years?)|first ?renewal ?order",
     "description": "Cap on how much Oracle can increase the Term of the service, at the time of Renewal"
   },
-  "RENEWAL CAP %": {
+  "RENEWAL CAP PERCENT": {
     "must": {
       "LOB": ["Cloud"],
       "section_headings": ["Renewal", "Renewal Cap", "Renewals"]
