@@ -119,9 +119,6 @@ def get_keyterm_classification(
     if ordernumber is not None:
         query = query.eq("ORDER_NUMBER", ordernumber)
 
-    if keyterm is not None:
-        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm))
-
     response = query.execute()
     data = response.data
 
