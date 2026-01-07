@@ -2,6 +2,7 @@ from typing import List, Optional
 from fastapi import FastAPI, HTTPException, Query
 from .utils import load_keyterms, get_term_data,keyterm_parsing
 from .keyterm_classification import KeytermClassification
+from .keyterms import Keyterms
 from .keyterm_insight import KeytermInsight
 from .keyterm_ES import KeytermES
 from supabase import create_client
@@ -88,6 +89,31 @@ def get_keyterm_insight(
 ):
     # Start base query
     query = supabase.table("KEYTERM_ES_INTEGRATION").select("*")
+
+    # Apply filters only if present
+    if ordernumber is not None:
+        query = query.eq("ORDER_NUMBER", ordernumber)
+
+    if keyterm is not None:
+        query = query.eq("KEYTERM_CODE", keyterm_parsing(keyterm))
+
+    response = query.execute()
+    data = response.data
+
+    if not data:
+        raise HTTPException(
+            status_code=404, detail="No records found for given filters"
+        )
+
+    return data
+
+
+@app.get("/keyterms", response_model=List[Keyterms])
+def get_keyterm_classification(
+    ordernumber: Optional[int] = Query(None, description="Order number (BIGINT)")
+):
+    # Start base query
+    query = supabase.table("KEYTERMS_ALL").select("*")
 
     # Apply filters only if present
     if ordernumber is not None:
